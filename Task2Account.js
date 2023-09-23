@@ -1,8 +1,7 @@
 class Account {
   static accounts = [];
   constructor(name, balance) {
-    let id = 0;
-    this.id = id++;
+    this.id = Account.uniqId();
     this.name = name;
     this._balance = balance;
     Account.accounts.push(this);
@@ -51,6 +50,10 @@ class Account {
   static identifyAccounts(...accounts) {
     return accounts.map((account) => account.id);
   }
+
+  static uniqId() {
+    return Math.random().toString(16).slice(2);
+  }
 }
 
 const saving = new Account("saving", 1000);
@@ -62,4 +65,5 @@ saving.transferTo(current, 1000);
 console.log(saving.balance);
 console.log(current.balance);
 const res = Account.identifyAccounts(current, saving);
-console.log(saving.balance);
+console.log(saving.id);
+console.log(current.id);
